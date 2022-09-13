@@ -67,4 +67,4 @@ class TestRegistration:
         # Verify registration
         profile_button = login_page.find_element(by=By.XPATH, value=".//img[@alt='My profile']")
         assert profile_button.is_enabled(), f"Registration failed"
-        sleep(3)
+        sleep(2)
