@@ -1,14 +1,15 @@
-# - Створити тест на реєстрацію.
+# -  Створити тест на реєстрацію.
 # Нюанс номер 1: Тест має проходити більше 1 разу, тобто данні в полях мають бути повністю
 # або чатсково випадковими (Оскільки той самий юзер не може бути зареєстрований двічі)
 # Нюанс номер 2: Вам потрібно самостійно придумати перевірку, що буде підверджувати успішність реєстрації.
 # Це може бути перевірка наявності якогось поля, його значення, повідомлення або первірка URL.
 
-import string
 import random
+import string
+from time import sleep
+
 import pytest
 from selenium import webdriver
-from time import sleep
 from selenium.webdriver.common.by import By
 
 characters = list(string.ascii_letters + string.digits)
