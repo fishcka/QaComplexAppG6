@@ -29,7 +29,7 @@ def random_symbols():
     return symbols
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def login_page():
     # Create driver
     driver = webdriver.Firefox()
@@ -43,6 +43,7 @@ def login_page():
 
 
 class TestRegistration:
+    @pytest.mark.repeat(1)  # the value in brackets indicates how many times to repeat the test
     def test_registration(self, random_symbols, login_page):
         # Fill login
         login = login_page.find_element(by=By.XPATH, value=".//input[@id='username-register']")
