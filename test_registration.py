@@ -1,8 +1,3 @@
-# -  Створити тест на реєстрацію.
-# Нюанс номер 1: Тест має проходити більше 1 разу, тобто данні в полях мають бути повністю
-# або чатсково випадковими (Оскільки той самий юзер не може бути зареєстрований двічі)
-# Нюанс номер 2: Вам потрібно самостійно придумати перевірку, що буде підверджувати успішність реєстрації.
-# Це може бути перевірка наявності якогось поля, його значення, повідомлення або первірка URL.
 import csv
 import logging
 import random
@@ -49,7 +44,7 @@ def page_driver():
 class TestRegistration:
     log = logging.getLogger(__name__)
 
-    with open("usernames.csv", "r") as f:
+    with open("user_names.csv", "r") as f:
         reader = csv.reader(f, delimiter=",")
         usernames = [tuple(row) for row in reader]
 
