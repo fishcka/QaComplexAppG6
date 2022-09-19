@@ -44,7 +44,7 @@ def page_driver():
 class TestRegistration:
     log = logging.getLogger(__name__)
 
-    with open("user_names.csv", "r") as f:
+    with open("usernames.csv", "r") as f:
         reader = csv.reader(f, delimiter=",")
         usernames = [tuple(row) for row in reader]
 
@@ -79,31 +79,24 @@ class TestRegistration:
         self.log.info("email without @ verified")
         sleep(2)
 
+    with open("passwords.csv", "r") as f:
+        reader = csv.reader(f, delimiter=",", quotechar="|")
+        passwords = [tuple(row) for row in reader]
+
     @pytest.mark.repeat(1)
-    def test_registration_password_field(self, page_driver):
+    @pytest.mark.parametrize(["pwd", "pwd_error", "pwd_log", "pwd_element"], passwords)
+    def test_registration_password_field(self, page_driver, pwd, pwd_error, pwd_log, pwd_element):
         # Fill password with less than 12 symbols
         password = page_driver.find_element(by=By.XPATH, value=".//input[@id='password-register']")
-        password.send_keys("pass")
-        self.log.info("'pass' entered to password field")
+        password.send_keys(pwd)
+        self.log.info(f"'{pwd}' entered to password field")
         sleep(2)
 
         # Verify error
-        err_mess = page_driver.find_element(by=By.XPATH, value=".//div[contains(text(),'Password must be at least 12 characters.')]")
-        assert err_mess.text == "Password must be at least 12 characters.", f"Actual message: {err_mess.text}"
+        err_mess = page_driver.find_element(by=By.XPATH, value=pwd_element)
+        assert err_mess.text == pwd_error, f"Actual message: {err_mess.text}"
         password.clear()
-        self.log.info("password with less than 12 symbols verified")
-        sleep(2)
-
-        # Fill password with more than 50 symbols
-        password.send_keys("veryverylongpasswordmuchmorethanfiftycharacterslong")
-        self.log.info("'veryverylongpasswordmuchmorethanfiftycharacterslong' entered to password field")
-        sleep(2)
-
-        # Verify error
-        err_mess = page_driver.find_element(by=By.XPATH, value=".// div[contains(text(), 'Password cannot exceed 50 characters.')]")
-        assert err_mess.text == "Password cannot exceed 50 characters.", f"Actual message: {err_mess.text}"
-        password.clear()
-        self.log.info("password with more than 50 symbols verified")
+        self.log.info(pwd_log)
         sleep(2)
 
     @pytest.mark.repeat(1)
