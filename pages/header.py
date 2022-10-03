@@ -26,3 +26,8 @@ class Header(BasePage):
         # Click Sign Out button
         self.click(xpath=self.constants.SIGN_OUT_BUTTON_XPATH)
         self.log.info("button 'Sign Out' clicked")
+
+    def navigate_to_chat(self):
+        self.click(self.constants.CHAT_BUTTON_XPATH)
+        from pages.chat import Chat
+        return Chat(self.driver)

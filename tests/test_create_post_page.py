@@ -1,12 +1,14 @@
-from pages.utils import random_symbols
+from pages.utils import Post
 
 
 class TestCreatePostPage:
 
     def test_create_post_page(self, login):
         # Navigate to create Post Page
-        header = login.navigate_to_create_post_page()
+        create_post_page = login.header.navigate_to_create_post_page()
         # Create Post
-        header.create_post(title=random_symbols(15), body=random_symbols(150))
+        post = Post()
+        post.fill_default_post()
+        create_post_page.create_post(post)
         # Verify the result
-        header.verify_successfully_created()
+        create_post_page.verify_successfully_created()

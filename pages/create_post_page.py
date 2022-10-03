@@ -13,15 +13,17 @@ class CreatePostPage(BasePage):
 
     log = logging.getLogger("[CreatePostPage]")
 
-    def create_post(self, title, body):
-        # Create post
-        self.fill_field(xpath=self.constants.TITLE_FIELD_XPATH, value=title)
-        self.fill_field(xpath=self.constants.BODY_FIELD_XPATH, value=body)
+    def create_post(self, post):
+        """Create post"""
+        self.fill_field(xpath=self.constants.TITLE_FIELD_XPATH, value=post.title)
+        self.log.info(f"'{post.title}' entered to Title field")
+        self.fill_field(xpath=self.constants.BODY_FIELD_XPATH, value=post.body)
+        self.log.info(f"'{post.body}' entered to Title field")
         self.click(xpath=self.constants.SAVE_NEW_POST_BUTTON_XPATH)
         self.log.info("Post created")
 
     def verify_successfully_created(self):
-        # Verify success message
+        """Verify success message"""
         assert self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH) == self.constants.SUCCESS_MESSAGE_TEXT, \
             f"Actual: {self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH)}"
         self.log.info(f"Message '{self.constants.SUCCESS_MESSAGE_TEXT}' was verified")

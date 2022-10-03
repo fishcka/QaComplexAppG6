@@ -1,2 +1,2 @@
-geckodriver.exe also added to system variables -> python path
-in my case to folder C:\Users\I057805\AppData\Local\Programs\Python\Python310
+I created folder C:\dev\drivers and added geckodriver.exe to this folder.
+Also added C:\dev\drivers to system variables -> PATH

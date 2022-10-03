@@ -1,6 +1,6 @@
 import pytest
 
-from pages.utils import csv_read, random_symbols
+from pages.utils import csv_read, User
 
 
 class TestStartPage:
@@ -30,9 +30,9 @@ class TestStartPage:
         page_driver.verify_sign_up_password_error(pwd_error, pwd_log, pwd_element)
 
     @pytest.mark.repeat(1)
-    def test_registration(self, page_driver):
+    def test_registration(self, page_driver, random_user):
         # Fill username, email, password fields with generated values and click Sign up
-        header = page_driver.register(random_symbols, f"{random_symbols}@gmail.com", random_symbols)
+        header = page_driver.register(random_user)
         # Verify registration
         header.verify_profile_button()
         # Click 'Sign Out' button
@@ -40,19 +40,19 @@ class TestStartPage:
 
     def test_incorrect_login(self, page_driver):
         # Login as a user
-        page_driver.sign_in("User11", "Pwd11")
+        page_driver.login_in("User11", "Pwd11")
         # Verify error
         page_driver.verify_sign_in_error()
 
     def test_empty_login(self, page_driver):
         # Login as a user
-        page_driver.sign_in("", "")
+        page_driver.sign_in(User())
         # Verify error
         page_driver.verify_sign_in_error()
 
     def test_login(self, page_driver):
         # Login as a user
-        header = page_driver.sign_in("ludmilaa", "ludmilaagmailcom")
+        header = page_driver.login_in("ludmilaa", "ludmilaagmailcom")
         # Verify login
         header.verify_profile_button()
         # Click 'Sign Out' button

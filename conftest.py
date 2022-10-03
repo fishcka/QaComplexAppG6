@@ -5,6 +5,7 @@ from selenium import webdriver
 
 from constants.base import DRIVER_PATH, BASE_URL
 from pages.start_page import StartPage
+from pages.utils import User
 
 log = logging.getLogger(__name__)
 
@@ -28,4 +29,11 @@ def page_driver():
 @pytest.fixture()
 def login(page_driver):
     # Login with registered user
-    return page_driver.sign_in("ludmilaa", "ludmilaagmailcom")
+    return page_driver.login_in("ludmilaa", "ludmilaagmailcom")
+
+
+@pytest.fixture()
+def random_user():
+    user = User()
+    user.fill_user_data()
+    return user

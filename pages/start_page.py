@@ -1,5 +1,4 @@
 import logging
-from time import sleep
 
 from constants.start_page import StartPageConstants
 from pages.base_page import BasePage
@@ -39,16 +38,15 @@ class StartPage(BasePage):
         self.log.info(pwd_log)
 
     @wait_until_ok(period=0.5)
-    def register(self, username, email, pwd):
+    def register(self, user):
         # Fill username, email, password
-        self.fill_field(xpath=self.constants.SIGN_UP_USERNAME_FIELD_XPATH, value=username)
-        self.log.info(f"'{username}' entered to username field")
-        self.fill_field(xpath=self.constants.SIGN_UP_EMAIL_FIELD_XPATH, value=email)
-        self.log.info(f"'{email}@gmail.com' entered to email field")
-        self.fill_field(xpath=self.constants.SIGN_UP_PASSWORD_FIELD_XPATH, value=pwd)
-        self.log.info(f"'{pwd}' entered to password field")
+        self.fill_field(xpath=self.constants.SIGN_UP_USERNAME_FIELD_XPATH, value=user.username)
+        self.log.info(f"'{user.username}' entered to username field")
+        self.fill_field(xpath=self.constants.SIGN_UP_EMAIL_FIELD_XPATH, value=user.email)
+        self.log.info(f"'{user.email}' entered to email field")
+        self.fill_field(xpath=self.constants.SIGN_UP_PASSWORD_FIELD_XPATH, value=user.password)
+        self.log.info(f"'{user.password}' entered to password field")
         # Click button
-        sleep(1)
         self.click_sign_up_and_verify()
         self.log.info(f"button 'Sign up for OurApp' clicked")
         from pages.header import Header
@@ -60,16 +58,27 @@ class StartPage(BasePage):
         self.click(xpath=self.constants.SIGN_UP_BUTTON_XPATH)
         assert not self.is_exists(xpath=self.constants.SIGN_UP_BUTTON_XPATH)
 
-    def sign_in(self, username, password):
+    def login_in(self, username, password):
         # Fill login
         self.fill_field(xpath=self.constants.SIGN_IN_USERNAME_XPATH, value=username)
         self.log.info(f"'{username}' entered to username field")
         self.fill_field(xpath=self.constants.SIGN_IN_PASSWORD_XPATH, value=password)
         self.log.info(f"'{password}' entered to password field")
         self.click(xpath=self.constants.SIGN_IN_BUTTON_XPATH)
-        self.log.info(f"button 'Sign In' clicked")
-        from pages.header import Header
-        return Header(self.driver)
+        self.log.info(f"Button 'Sign In' clicked")
+        from pages.hello_page import HelloPage
+        return HelloPage(self.driver)
+
+    def sign_in(self, user):
+        # Fill login
+        self.fill_field(xpath=self.constants.SIGN_IN_USERNAME_XPATH, value=user.username)
+        self.log.info(f"'{user.username}' entered to username field")
+        self.fill_field(xpath=self.constants.SIGN_IN_PASSWORD_XPATH, value=user.password)
+        self.log.info(f"'{user.password}' entered to password field")
+        self.click(xpath=self.constants.SIGN_IN_BUTTON_XPATH)
+        self.log.info(f"Button 'Sign In' clicked")
+        from pages.hello_page import HelloPage
+        return HelloPage(self.driver)
 
     def verify_sign_in_error(self):
         # Verify invalid Sign In error
