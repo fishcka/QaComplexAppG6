@@ -5,6 +5,8 @@ import random
 import string
 from time import sleep
 
+from constants.create_post_page import CreatePostPageConstants
+
 
 def csv_read(csv_file):
     with open(csv_file, "r") as f:
@@ -68,11 +70,13 @@ class User:
 
 class Post:
 
-    def __init__(self, title="", body=""):
+    def __init__(self, title="", body="", unique="no", visibility=CreatePostPageConstants.OPTION_ALL_USERS):
         self.title = title
         self.body = body
+        self.visibility = visibility
+        self.unique = unique
 
     def fill_default_post(self):
         # Fill fields using random data
         self.title = random_symbols(15)
-        self.body = random_symbols(200)
+        self.body = random_symbols(50)
