@@ -4,3 +4,4 @@ __pycache__/
 .idea
 /examples/
 /geckodriver.log
+/tests/geckodriver.log

@@ -11,7 +11,3 @@ class StartPageConstants:
     SIGN_UP_EMAIL_FIELD_XPATH = ".//input[@id='email-register']"
     SIGN_UP_PASSWORD_FIELD_XPATH = ".//input[@id='password-register']"
     SIGN_UP_BUTTON_XPATH = ".//button[@type='submit']"
-
-    # TODO: next page
-    MY_PROFILE_BUTTON_XPATH = ".//img[@alt='My profile']"
-    SIGN_OUT_BUTTON_XPATH = ".//button[text()='Sign Out']"  # .//button[@class='btn btn-sm btn-secondary']
